@@ -1,0 +1,41 @@
+# tests&funnels
+
+> An AI agency in Delhi, India, that automates marketing, sales and operations; a production house for realistic media, UGC, influencer marketing and personal branding; and a partner in Incube8, an incubator offering training, validation, acceleration, office space and funding.
+
+## Pages
+- [Home](https://testsandfunnels.com/): Delhi AI agency that automates marketing, sales and operations, a production house for media, UGC and personal brands, and a partner in Incube8.
+- [AI automation](https://testsandfunnels.com/ai-automation/): AI automation agency in Delhi: agents that run the manual work of marketing, sales and operations, with one point of contact and people in review.
+- [Social media agents](https://testsandfunnels.com/ai-automation/social-media-agents/): AI social media agents for scripting, content calendars, video editing, publishing, insights, influencer outreach and comment replies, within your limits.
+- [Advertising agents](https://testsandfunnels.com/ai-automation/advertising-agents/): AI advertising agents that set up and optimize Google, Meta and LinkedIn campaigns and report on ad performance, within the budgets you approve.
+- [Sales agents](https://testsandfunnels.com/ai-automation/sales-agents/): AI sales agents that capture leads, follow up on email and WhatsApp and run tele-call workflows, so every lead is tracked from first touch.
+- [Operations agents](https://testsandfunnels.com/ai-automation/operations-agents/): Operations automation with AI agents: MIS, lead and order dashboards, reports and plans kept current, so your team stops rebuilding them by hand.
+- [Production house](https://testsandfunnels.com/production-house/): Production house in Delhi for realistic media, UGC, influencer marketing and personal branding, planned for reuse across your ads and channels.
+- [Product and lifestyle shoots](https://testsandfunnels.com/production-house/product-and-lifestyle-shoots/): E-commerce product photography and lifestyle video planned for your ad formats, shot in bulk and cut down for every channel you run ads on.
+- [AI visuals and video](https://testsandfunnels.com/production-house/ai-visuals-and-video/): AI video ads and visuals for concepts, variations and scenes that are costly to shoot, built on Higgsfield and reviewed by a person before they run.
+- [UGC](https://testsandfunnels.com/production-house/ugc/): UGC agency for brands in India: creator-style video and photos with briefs, creator selection, review and cut-downs for your ads and social.
+- [Personal branding and influencer creation](https://testsandfunnels.com/personal-branding/): Personal branding agency in Delhi: positioning, repeatable video content, influencer creation and growth on Instagram, YouTube and LinkedIn.
+- [Influencer marketing](https://testsandfunnels.com/influencer-marketing/): Influencer marketing agency in Delhi: creator shortlists, outreach, briefs, approvals and per-creator tracking of clicks, leads and sales.
+- [Incube8](https://testsandfunnels.com/incubation/): Startup incubator in Delhi NCR: Incube8 offers training, validation, acceleration, office space and funding, backed by VivoCorp and GeMTech PARAS.
+- [Apply](https://testsandfunnels.com/incubation/apply/): Apply to Incube8, the startup incubator in Delhi NCR. Tell us what you are building and where it is today, and we review every application.
+- [Services](https://testsandfunnels.com/services/): Digital marketing services in Delhi: performance marketing, brand building, social media, cold outreach, SEO, websites and sales, run by agents and a team.
+- [Performance marketing](https://testsandfunnels.com/services/performance-marketing/): Performance marketing agency in Delhi: Google, Meta and LinkedIn campaigns planned from unit economics and tested at every stage of the funnel.
+- [Brand building](https://testsandfunnels.com/services/brand-building/): Brand building agency in Delhi: research, positioning, brand voice, messaging, design and storytelling that build recognition and trust.
+- [Social media management](https://testsandfunnels.com/services/social-media-management/): Social media management agency in Delhi: platform-specific content, reels, content calendars and community engagement, with agents on the repeat work.
+- [Cold outreach](https://testsandfunnels.com/services/cold-outreach/): Cold outreach services for B2B leads: data sourcing, email, WhatsApp and social DMs, and CRM automation aimed at qualified leads and demos.
+- [Visibility optimization](https://testsandfunnels.com/services/visibility-optimization/): AI search optimization: SEO, AEO and GEO audits and strategy to be found on Google, maps, voice search and in AI answers. No ranking promises.
+- [Website development](https://testsandfunnels.com/services/website-development/): Website development company in Delhi: websites, landing pages and Shopify stores built to convert, with conversion tracking set up from day one.
+- [Sales services](https://testsandfunnels.com/services/sales-services/): Lead conversion services in Delhi: telecalling and follow-ups, sales training and enablement, and CRM and sales ops setup.
+- [Industries](https://testsandfunnels.com/industries/): A niche marketing agency for e-commerce brands, hospitals and clinics, and personal brands, with ROI-positive growth as the goal.
+- [E-commerce brands](https://testsandfunnels.com/industries/e-commerce/): E-commerce marketing agency in India: Meta and Google Ads, Shopify stores, product photography and SEO, reported on ROAS and cost per acquisition.
+- [Hospitals and clinics](https://testsandfunnels.com/industries/healthcare/): Healthcare marketing agency for hospitals and clinics: local SEO, lead campaigns, websites and enquiry follow-up, within advertising rules.
+- [Work](https://testsandfunnels.com/work/): Digital marketing case studies from tests&funnels: Sparc Lights, Suit Up by Kailash Talreja and Ayurvishwa Healthcare, with the source of every figure.
+- [Sparc Lights](https://testsandfunnels.com/work/sparc-lights/): Sparc Lights case study: Meta Ads, SEO and Shopify for a premium D2C lighting brand, ₹27L+ revenue at 5.28x ROAS over 14 months.
+- [Suit Up by Kailash Talreja](https://testsandfunnels.com/work/suit-up-by-kailash-talreja/): Personal branding case study: Suit Up by Kailash Talreja, a Delhi bespoke tailor, with 32.8K Instagram followers and 1.5M plays on its latest 12 Reels.
+- [Ayurvishwa Healthcare](https://testsandfunnels.com/work/ayurvishwa-healthcare/): Healthcare marketing case study: Meta lead campaigns for Ayurvishwa Healthcare's clinics, with 815 enquiries and 77 patient visits in April 2025.
+- [How we work](https://testsandfunnels.com/how-we-work/): Our marketing agency process: we collect your brief, audit your industry and funnel, pitch a strategy and action plan, then share the roadmap.
+- [Free Business Audit](https://testsandfunnels.com/free-business-audit/): Free business audit: we collect your brief, then audit your industry and funnel from visibility to retention and pitch a strategy and roadmap.
+- [About](https://testsandfunnels.com/about/): About tests&funnels, a Delhi agency led by Shrey Talreja and Soyam Aggarwal with Pinky Dhingra as Business Head: AI agents, media and ventures.
+- [Contact](https://testsandfunnels.com/contact/): Contact tests&funnels in Delhi by phone, WhatsApp, email or form for agency, training, incubation and partnership enquiries.
+- [Delhi](https://testsandfunnels.com/locations/delhi/): AI agency in Delhi that automates marketing, sales and operations, produces media and builds personal brands. Call us or request a free audit.
+- [Partner with us](https://testsandfunnels.com/partner-with-us/): White label marketing partner for agencies, consultancies and studios: media, AI agents and campaigns delivered under your name. Tell us what you need.
+- [Training](https://testsandfunnels.com/training/): Performance marketing course in Delhi with AI in every module: online live ₹40,000 or in-office ₹60,000 + GST, taught by agency founders.

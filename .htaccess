@@ -1,0 +1,148 @@
+# ======================================================================
+# Apache Configuration (.htaccess) for tests&funnels
+# Enables direct link pasting, clean URLs, security, and caching
+# ======================================================================
+
+# ----------------------------------------------------------------------
+# 1. Directory & File Options
+# ----------------------------------------------------------------------
+
+# Ensure index.html is loaded automatically for directory paths
+DirectoryIndex index.html index.htm
+
+# Disable directory browsing for security (prevents listing folder files)
+Options -Indexes
+
+# Follow symbolic links (required for mod_rewrite on many hosting providers)
+Options +FollowSymLinks
+
+# Disable MultiViews to prevent conflicts with clean URLs and rewrite rules
+Options -MultiViews
+
+# Default character set
+AddDefaultCharset UTF-8
+
+# Custom 404 Error page (serves the branded 404 page for missing URLs)
+ErrorDocument 404 /404.html
+
+
+# ----------------------------------------------------------------------
+# 2. URL Rewriting & Direct Link Paste Resolution
+# ----------------------------------------------------------------------
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # A. Enforce HTTPS (compatible with direct Apache SSL, Cloudflare, and Reverse Proxies)
+    RewriteCond %{HTTPS} off
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+    # B. Remove /index.html from URL if directly pasted or requested
+    #    e.g., https://site.com/index.html       -> https://site.com/
+    #    e.g., https://site.com/about/index.html -> https://site.com/about/
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /+(.*)index\.html(?:\?[^\ ]*)?\ HTTP/ [NC]
+    RewriteRule ^(.*)index\.html$ /$1 [R=301,L]
+
+    # C. Direct link paste with .html extension -> Redirect to clean directory URL
+    #    e.g., https://site.com/about.html -> https://site.com/about/
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{DOCUMENT_ROOT}/$1 -d
+    RewriteRule ^(.*)\.html$ /$1/ [R=301,L]
+
+    # D. Direct link paste WITHOUT trailing slash:
+    #    When a user pastes https://site.com/about or https://site.com/work/sparc-lights
+    #    Redirects with trailing slash so browser resolves assets and serves index.html properly.
+    #    Prevents 404 errors and port-leaking proxy redirects.
+    RewriteCond %{REQUEST_FILENAME} -d [OR]
+    RewriteCond %{DOCUMENT_ROOT}/$1 -d
+    RewriteRule ^(.*[^/])$ %{REQUEST_URI}/ [R=301,L]
+
+    # E. Allow clean URLs without .html extension (for any standalone .html files)
+    #    e.g., https://site.com/404 -> serves 404.html internally
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME}.html -f
+    RewriteRule ^(.*)$ $1.html [L]
+
+    # F. Ensure directory requests serve index.html internally
+    #    Guarantees page loads even if server DirectoryIndex has issues
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteCond %{REQUEST_FILENAME}/index.html -f
+    RewriteRule ^(.*)/$ $1/index.html [L]
+</IfModule>
+
+
+# ----------------------------------------------------------------------
+# 3. MIME Types Configuration
+# ----------------------------------------------------------------------
+
+<IfModule mod_mime.c>
+    AddType text/html .html .htm
+    AddType text/css .css
+    AddType application/javascript .js
+    AddType application/json .json
+    AddType image/svg+xml .svg
+    AddType image/webp .webp
+    AddType image/png .png
+    AddType image/jpeg .jpg .jpeg
+    AddType font/woff2 .woff2
+    AddType font/woff .woff
+</IfModule>
+
+
+# ----------------------------------------------------------------------
+# 4. Security Headers
+# ----------------------------------------------------------------------
+
+<IfModule mod_headers.c>
+    # Prevent browsers from MIME-sniffing a response away from declared content-type
+    Header set X-Content-Type-Options "nosniff"
+
+    # Clickjacking protection: only allow framing from the same origin
+    Header set X-Frame-Options "SAMEORIGIN"
+
+    # Control how much referrer information is sent with requests
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+
+# ----------------------------------------------------------------------
+# 5. Performance & Compression (Gzip / Deflate)
+# ----------------------------------------------------------------------
+
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+    AddOutputFilterByType DEFLATE application/javascript application/x-javascript text/javascript
+    AddOutputFilterByType DEFLATE application/json application/xml application/xhtml+xml
+    AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+
+# ----------------------------------------------------------------------
+# 6. Browser Caching
+# ----------------------------------------------------------------------
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 1 month"
+
+    # HTML files: don't cache indefinitely so page updates reflect immediately
+    ExpiresByType text/html "access plus 0 seconds"
+    ExpiresByType text/xml "access plus 0 seconds"
+    ExpiresByType application/xml "access plus 0 seconds"
+    ExpiresByType application/json "access plus 0 seconds"
+
+    # Static media and fonts
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType text/javascript "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+</IfModule>
+
