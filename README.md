@@ -35,3 +35,4 @@
 - **Scripting:** Pure JavaScript (ES6+, zero runtime dependencies)
 - **Web Server:** Apache / LiteSpeed with custom `.htaccess`
 - **Hosting:** Hostinger / cPanel compatible
+
