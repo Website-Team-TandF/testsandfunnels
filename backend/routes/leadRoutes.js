@@ -22,3 +22,4 @@ router.put('/:id', authMiddleware, updateLead);
 router.delete('/:id', authMiddleware, deleteLead);
 
 module.exports = router;
+

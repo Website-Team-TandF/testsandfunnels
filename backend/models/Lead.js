@@ -84,3 +84,4 @@ LeadSchema.set('toJSON', { virtuals: true });
 LeadSchema.set('toObject', { virtuals: true });
 
 module.exports = mongoose.model('Lead', LeadSchema);
+

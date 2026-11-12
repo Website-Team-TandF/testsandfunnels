@@ -33,19 +33,7 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 // 1. API Routes
 app.use('/api/leads', leadRoutes);
 app.use('/api/auth', authRoutes);
-
-// 2. Compatibility Layer (ensures existing frontend forms & legacy endpoints route seamlessly)
-app.post(['/backend/api/submit.php', '/backend/api/submit', '/api/submit'], submitLead);
-app.get(['/backend/api/leads.php', '/backend/api/leads'], getLeads);
-app.post(['/backend/api/update.php', '/backend/api/update'], (req, res) => {
-  req.params.id = req.body.id;
-  updateLead(req, res);
-});
-app.post(['/backend/api/delete.php', '/backend/api/delete'], (req, res) => {
-  req.params.id = req.body.id;
-  deleteLead(req, res);
-});
-app.get(['/backend/api/export.php', '/backend/api/export'], exportCSV);
+app.post('/api/submit', submitLead);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
