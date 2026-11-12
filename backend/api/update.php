@@ -52,3 +52,4 @@ if (!saveLeads($leads)) {
 }
 
 echo json_encode(['success' => true, 'message' => 'Lead updated successfully']);
+

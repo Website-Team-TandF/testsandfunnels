@@ -1,0 +1,28 @@
+{
+  "name": "testsandfunnels-backend",
+  "version": "1.0.0",
+  "description": "MERN Stack Backend & Leads Dashboard for Tests&Funnels",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "mern",
+    "express",
+    "mongodb",
+    "react",
+    "leads",
+    "crm"
+  ],
+  "author": "Tests&Funnels",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.5"
+  }
+}

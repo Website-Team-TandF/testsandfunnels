@@ -35,3 +35,4 @@ echo json_encode([
     'total'   => count($leads),
     'leads'   => array_values($leads)
 ]);
+
