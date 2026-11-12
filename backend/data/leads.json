@@ -1,0 +1,18 @@
+[
+  {
+    "id": "lead_test123",
+    "created_at": "2026-11-12 12:48:51",
+    "name": "Aakash Verma",
+    "phone": "+91 98765 43210",
+    "email": "aakash@example.com",
+    "form_type": "Free Business Audit",
+    "industry": "Healthcare",
+    "monthly_ad_spend": "₹50,000 - ₹1,00,000",
+    "website": "https://aakashhealth.com",
+    "message": "Need help optimizing our Google ads and meta funnels.",
+    "source_page": "https://testsandfunnels.com/free-business-audit/",
+    "ip_address": "127.0.0.1",
+    "status": "New",
+    "admin_notes": "Initial test lead created to verify dashboard integration"
+  }
+]

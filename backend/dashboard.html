@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leads Dashboard &bull; tests&amp;funnels</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card: #131929;
+      --card-hover: #172138;
+      --border: #232e4d;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --primary: #6366f1;
+      --accent: #06b6d4;
+      --green: #10b981;
+      --amber: #f59e0b;
+      --red: #ef4444;
+      --purple: #8b5cf6;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: rgba(19, 25, 41, 0.95);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+      padding: 0.9rem 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+    .header-logo {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+      color: #fff;
+    }
+    .header-logo span { color: var(--accent); }
+    .header-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: rgba(99, 102, 241, 0.2);
+      color: var(--primary);
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.15s;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: #4f46e5; }
+    .btn-secondary { background: #1e293b; color: var(--text); border-color: var(--border); }
+    .btn-secondary:hover { background: #334155; }
+    .btn-danger { background: rgba(239, 68, 68, 0.15); color: #fca5a5; border-color: rgba(239, 68, 68, 0.3); }
+    .btn-danger:hover { background: rgba(239, 68, 68, 0.3); }
+
+    main {
+      flex: 1;
+      padding: 1.75rem;
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* STATS GRID */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+    }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-card::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .stat-card.total::after { background: var(--primary); }
+    .stat-card.new::after { background: var(--accent); }
+    .stat-card.today::after { background: var(--amber); }
+    .stat-card.conv::after { background: var(--green); }
+    .stat-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+    }
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    /* TOOLBAR */
+    .toolbar {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex: 1;
+      min-width: 250px;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 0.55rem 0.85rem;
+      background: #0b101d;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 0.85rem;
+    }
+    .search-box input:focus { outline: none; border-color: var(--accent); }
+    .filters {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    select {
+      background: #0b101d;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.55rem 0.85rem;
+      font-size: 0.85rem;
+    }
+    select:focus { outline: none; border-color: var(--accent); }
+
+    /* TABLE */
+    .table-container {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+    th {
+      background: #0e1424;
+      padding: 0.85rem 1rem;
+      color: var(--muted);
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(35, 46, 77, 0.6);
+      vertical-align: middle;
+    }
+    tr:hover td { background: var(--card-hover); }
+    .lead-name { font-weight: 700; color: #fff; font-size: 0.95rem; }
+    .lead-meta { font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem; }
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .contact-link:hover { text-decoration: underline; }
+    .contact-links { display: flex; flex-direction: column; gap: 0.25rem; }
+
+    /* BADGES */
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .badge-new { background: rgba(6, 182, 212, 0.2); color: #22d3ee; border: 1px solid rgba(6, 182, 212, 0.3); }
+    .badge-contacted { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge-discussion { background: rgba(139, 92, 246, 0.2); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.3); }
+    .badge-converted { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge-closed { background: rgba(148, 163, 184, 0.2); color: #cbd5e1; border: 1px solid rgba(148, 163, 184, 0.3); }
+
+    .tag {
+      display: inline-block;
+      background: #1e293b;
+      color: var(--muted);
+      border-radius: 4px;
+      padding: 0.15rem 0.4rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      margin-top: 0.2rem;
+    }
+
+    .empty-state {
+      padding: 3.5rem 1rem;
+      text-align: center;
+      color: var(--muted);
+    }
+    .empty-state h3 { color: #fff; margin-bottom: 0.4rem; }
+
+    /* MODAL DRAWER */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 50;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 1.75rem;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.75rem;
+    }
+    .modal-title { font-size: 1.2rem; font-weight: 800; color: #fff; }
+    .modal-close {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.2rem 0.5rem;
+      line-height: 1;
+    }
+    .modal-close:hover { color: #fff; }
+    .detail-row {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+      font-size: 0.88rem;
+    }
+    .detail-label { color: var(--muted); font-weight: 600; }
+    .detail-value { color: #fff; word-break: break-word; }
+    .notes-textarea {
+      width: 100%;
+      padding: 0.75rem;
+      background: #0b101d;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 0.88rem;
+      min-height: 90px;
+      resize: vertical;
+      margin-top: 0.4rem;
+    }
+    .notes-textarea:focus { outline: none; border-color: var(--accent); }
+    .modal-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <a href="/backend/" class="header-logo">
+      <span>tests</span>&amp;funnels
+      <span class="header-badge">Leads CRM</span>
+    </a>
+    <div class="header-actions">
+      <a href="/backend/api/export.php" class="btn btn-secondary">
+        ⬇ Export CSV
+      </a>
+      <button class="btn btn-primary" onclick="simulateTestLead()">
+        + Test Lead
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- STATS -->
+    <div class="stats-grid">
+      <div class="stat-card total">
+        <span class="stat-label">Total Leads</span>
+        <span class="stat-value" id="kpiTotal">0</span>
+      </div>
+      <div class="stat-card new">
+        <span class="stat-label">New / Uncontacted</span>
+        <span class="stat-value" id="kpiNew" style="color:#22d3ee;">0</span>
+      </div>
+      <div class="stat-card today">
+        <span class="stat-label">Received Today</span>
+        <span class="stat-value" id="kpiToday" style="color:#fbbf24;">0</span>
+      </div>
+      <div class="stat-card conv">
+        <span class="stat-label">Converted</span>
+        <span class="stat-value" id="kpiConv" style="color:#34d399;">0</span>
+      </div>
+    </div>
+
+    <!-- TOOLBAR -->
+    <div class="toolbar">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search by name, phone, email, industry, or notes..." onkeyup="filterLeads()">
+      </div>
+      <div class="filters">
+        <select id="statusFilter" onchange="filterLeads()">
+          <option value="">All Statuses</option>
+          <option value="New">New</option>
+          <option value="Contacted">Contacted</option>
+          <option value="In Discussion">In Discussion</option>
+          <option value="Converted">Converted</option>
+          <option value="Closed">Closed</option>
+        </select>
+        <button class="btn btn-secondary" onclick="loadLeads()">↻ Refresh</button>
+      </div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-container">
+      <table id="leadsTable">
+        <thead>
+          <tr>
+            <th>Status</th>
+            <th>Date &amp; Time</th>
+            <th>Lead Info</th>
+            <th>Contact Details</th>
+            <th>Form Type &amp; Industry</th>
+            <th>Message</th>
+            <th style="text-align:right;">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <tr>
+            <td colspan="7">
+              <div class="empty-state">
+                <h3>Loading leads...</h3>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- LEAD DETAILS MODAL -->
+  <div class="modal-backdrop" id="leadModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title" id="modalLeadName">Lead Details</div>
+        <button class="modal-close" onclick="closeLeadModal()">&times;</button>
+      </div>
+      <div id="modalContent">
+        <div class="detail-row"><div class="detail-label">Lead ID:</div><div class="detail-value" id="mId"></div></div>
+        <div class="detail-row"><div class="detail-label">Created At:</div><div class="detail-value" id="mDate"></div></div>
+        <div class="detail-row"><div class="detail-label">Phone:</div><div class="detail-value" id="mPhone"></div></div>
+        <div class="detail-row"><div class="detail-label">Email:</div><div class="detail-value" id="mEmail"></div></div>
+        <div class="detail-row"><div class="detail-label">Form Type:</div><div class="detail-value" id="mForm"></div></div>
+        <div class="detail-row"><div class="detail-label">Industry:</div><div class="detail-value" id="mIndustry"></div></div>
+        <div class="detail-row"><div class="detail-label">Ad Spend:</div><div class="detail-value" id="mSpend"></div></div>
+        <div class="detail-row"><div class="detail-label">Message:</div><div class="detail-value" id="mMessage" style="white-space:pre-wrap;"></div></div>
+        <div class="detail-row"><div class="detail-label">Source Page:</div><div class="detail-value" id="mSource"></div></div>
+        <div class="detail-row"><div class="detail-label">Client IP:</div><div class="detail-value" id="mIp"></div></div>
+
+        <div style="margin-top:1.25rem; border-top:1px solid var(--border); padding-top:1rem;">
+          <label style="display:block; font-size:0.8rem; font-weight:700; color:var(--muted); margin-bottom:0.4rem;">UPDATE STATUS</label>
+          <select id="mStatusSelect" style="width:100%; margin-bottom:1rem;">
+            <option value="New">New</option>
+            <option value="Contacted">Contacted</option>
+            <option value="In Discussion">In Discussion</option>
+            <option value="Converted">Converted</option>
+            <option value="Closed">Closed</option>
+          </select>
+
+          <label style="display:block; font-size:0.8rem; font-weight:700; color:var(--muted); margin-bottom:0.4rem;">ADMIN NOTES</label>
+          <textarea id="mNotesInput" class="notes-textarea" placeholder="Add internal notes about calls, client preferences, proposal sent, etc..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeLeadModal()">Close</button>
+        <button class="btn btn-primary" onclick="saveLeadChanges()">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var allLeads = [];
+    var currentLeadId = null;
+
+    function loadLeads() {
+      fetch('/backend/api/leads.php')
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          allLeads = data.leads || [];
+          updateKPIs();
+          renderTable();
+        })
+        .catch(function(err) {
+          document.getElementById('tableBody').innerHTML = '<tr><td colspan="7"><div class="empty-state"><h3>Unable to load leads</h3><p>' + err.message + '</p></div></td></tr>';
+        });
+    }
+
+    function updateKPIs() {
+      var total = allLeads.length;
+      var newL = 0;
+      var todayL = 0;
+      var convL = 0;
+      var todayStr = new Date().toISOString().substring(0, 10);
+
+      allLeads.forEach(function(l) {
+        var s = (l.status || 'New').toLowerCase();
+        if (s === 'new') newL++;
+        if (s === 'converted') convL++;
+        if (l.created_at && l.created_at.indexOf(todayStr) === 0) todayL++;
+      });
+
+      document.getElementById('kpiTotal').textContent = total;
+      document.getElementById('kpiNew').textContent = newL;
+      document.getElementById('kpiToday').textContent = todayL;
+      document.getElementById('kpiConv').textContent = convL;
+    }
+
+    function renderTable() {
+      var tbody = document.getElementById('tableBody');
+      if (allLeads.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7"><div class="empty-state"><h3>No leads received yet</h3><p>When visitors fill out any form on tests&amp;funnels, they will automatically appear here.</p></div></td></tr>';
+        return;
+      }
+
+      var q = (document.getElementById('searchInput').value || '').toLowerCase();
+      var st = document.getElementById('statusFilter').value;
+
+      var filtered = allLeads.filter(function(l) {
+        var name = (l.name || '').toLowerCase();
+        var phone = (l.phone || '').toLowerCase();
+        var email = (l.email || '').toLowerCase();
+        var ind = (l.industry || '').toLowerCase();
+        var notes = (l.admin_notes || '').toLowerCase();
+        var status = l.status || 'New';
+
+        var matchQ = !q || (name + ' ' + phone + ' ' + email + ' ' + ind + ' ' + notes).indexOf(q) !== -1;
+        var matchSt = !st || status.toLowerCase() === st.toLowerCase();
+        return matchQ && matchSt;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7"><div class="empty-state"><h3>No matching leads</h3><p>Try clearing your search or status filter.</p></div></td></tr>';
+        return;
+      }
+
+      var html = '';
+      filtered.forEach(function(l) {
+        var status = l.status || 'New';
+        var badgeClass = 'badge-new';
+        if (status.toLowerCase() === 'contacted') badgeClass = 'badge-contacted';
+        if (status.toLowerCase() === 'in discussion') badgeClass = 'badge-discussion';
+        if (status.toLowerCase() === 'converted') badgeClass = 'badge-converted';
+        if (status.toLowerCase() === 'closed') badgeClass = 'badge-closed';
+
+        var cleanPhone = (l.phone || '').replace(/[^0-9]/g, '');
+        var waMsg = encodeURIComponent("Hi " + (l.name || '') + ", thanks for contacting tests&funnels. How can we help you today?");
+
+        html += '<tr class="lead-row">' +
+          '<td><span class="badge ' + badgeClass + '">' + escapeHtml(status) + '</span></td>' +
+          '<td style="white-space:nowrap; color:var(--muted); font-size:0.8rem;">' + escapeHtml(l.created_at || '') + '</td>' +
+          '<td>' +
+            '<div class="lead-name">' + escapeHtml(l.name || 'Anonymous') + '</div>' +
+            (l.website ? '<div class="lead-meta">' + escapeHtml(l.website) + '</div>' : '') +
+          '</td>' +
+          '<td>' +
+            '<div class="contact-links">' +
+              (l.phone ? '<a href="tel:' + cleanPhone + '" class="contact-link">📞 ' + escapeHtml(l.phone) + '</a>' +
+                         '<a href="https://wa.me/' + cleanPhone + '?text=' + waMsg + '" target="_blank" rel="noopener" class="contact-link" style="color:#25d366;">💬 WhatsApp</a>' : '') +
+              (l.email ? '<a href="mailto:' + escapeHtml(l.email) + '" class="contact-link" style="color:var(--muted);">✉ ' + escapeHtml(l.email) + '</a>' : '') +
+            '</div>' +
+          '</td>' +
+          '<td>' +
+            '<div style="font-weight:600;">' + escapeHtml(l.form_type || 'Inquiry') + '</div>' +
+            (l.industry ? '<span class="tag">' + escapeHtml(l.industry) + '</span>' : '') +
+            (l.monthly_ad_spend ? '<span class="tag">Spend: ' + escapeHtml(l.monthly_ad_spend) + '</span>' : '') +
+          '</td>' +
+          '<td style="max-width:240px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:var(--muted);">' +
+            escapeHtml(l.message || '—') +
+          '</td>' +
+          '<td style="text-align:right; white-space:nowrap;">' +
+            '<button class="btn btn-secondary" onclick="openLeadModal(\'' + l.id + '\')">View Details</button> ' +
+            '<button class="btn btn-danger" onclick="deleteLead(\'' + l.id + '\')">✕</button>' +
+          '</td>' +
+        '</tr>';
+      });
+
+      tbody.innerHTML = html;
+    }
+
+    function filterLeads() {
+      renderTable();
+    }
+
+    function openLeadModal(id) {
+      currentLeadId = id;
+      var lead = allLeads.find(function(l) { return l.id === id; });
+      if (!lead) return;
+
+      document.getElementById('modalLeadName').textContent = lead.name || 'Lead Details';
+      document.getElementById('mId').textContent = lead.id;
+      document.getElementById('mDate').textContent = lead.created_at || '—';
+      document.getElementById('mPhone').innerHTML = lead.phone ? '<a href="tel:' + lead.phone + '" style="color:var(--accent);">' + escapeHtml(lead.phone) + '</a>' : '—';
+      document.getElementById('mEmail').innerHTML = lead.email ? '<a href="mailto:' + lead.email + '" style="color:var(--accent);">' + escapeHtml(lead.email) + '</a>' : '—';
+      document.getElementById('mForm').textContent = lead.form_type || '—';
+      document.getElementById('mIndustry').textContent = lead.industry || '—';
+      document.getElementById('mSpend').textContent = lead.monthly_ad_spend || '—';
+      document.getElementById('mMessage').textContent = lead.message || '—';
+      document.getElementById('mSource').textContent = lead.source_page || '—';
+      document.getElementById('mIp').textContent = lead.ip_address || '—';
+
+      document.getElementById('mStatusSelect').value = lead.status || 'New';
+      document.getElementById('mNotesInput').value = lead.admin_notes || '';
+
+      document.getElementById('leadModal').classList.add('open');
+    }
+
+    function closeLeadModal() {
+      document.getElementById('leadModal').classList.remove('open');
+    }
+
+    function saveLeadChanges() {
+      if (!currentLeadId) return;
+      var newStatus = document.getElementById('mStatusSelect').value;
+      var newNotes = document.getElementById('mNotesInput').value;
+
+      fetch('/backend/api/update.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: currentLeadId, status: newStatus, admin_notes: newNotes })
+      })
+      .then(function(r) { return r.json(); })
+      .then(function(res) {
+        if (res.success) {
+          closeLeadModal();
+          loadLeads();
+        } else {
+          alert('Error: ' + (res.error || 'Failed to update'));
+        }
+      });
+    }
+
+    function deleteLead(id) {
+      if (!confirm('Are you sure you want to delete this lead?')) return;
+      fetch('/backend/api/delete.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: id })
+      })
+      .then(function(r) { return r.json(); })
+      .then(function(res) {
+        if (res.success) {
+          loadLeads();
+        }
+      });
+    }
+
+    function simulateTestLead() {
+      var sampleData = {
+        name: "Rahul Sharma",
+        phone: "+91 98765 43210",
+        email: "rahul@startupindia.com",
+        form_type: "Free Business Audit",
+        industry: "E-Commerce",
+        monthly_ad_spend: "₹1,00,000 - ₹3,00,000",
+        website: "https://shoprahul.com",
+        message: "Looking for performance marketing & AI automation to scale our store to ₹20L/mo."
+      };
+      fetch('/backend/api/submit.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(sampleData)
+      })
+      .then(function(r) { return r.json(); })
+      .then(function(res) {
+        loadLeads();
+      });
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    // Initialize
+    loadLeads();
+  </script>
+</body>
+</html>
