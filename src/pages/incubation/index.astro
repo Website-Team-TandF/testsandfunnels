@@ -1,0 +1,19 @@
+---
+/* Auto-generated faithful port of /incubation/.
+   Page content lives in src/html/incubation.html (injected as raw HTML).
+   Next pass: refactor this <main> into reusable section components. */
+import Layout from '../../layouts/Layout.astro';
+import main from '../../html/incubation.html?raw';
+import jsonLd from '../../html/incubation.jsonld.html?raw';
+---
+<Layout
+  title={"Startup Incubator in Delhi: Incube8 | tests&funnels"}
+  description={"Startup incubator in Delhi NCR: Incube8 offers training, validation, acceleration, office space and funding, backed by VivoCorp and GeMTech PARAS."}
+  canonical={"https://testsandfunnels.com/incubation/"}
+  ogTitle={"Startup Incubator in Delhi: Incube8 | tests&funnels"}
+  ogDescription={"Startup incubator in Delhi NCR: Incube8 offers training, validation, acceleration, office space and funding, backed by VivoCorp and GeMTech PARAS."}
+  pageType={"pillar"}
+  jsonLd={jsonLd}
+>
+  <Fragment set:html={main} />
+</Layout>

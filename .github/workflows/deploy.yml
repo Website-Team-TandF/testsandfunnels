@@ -1,0 +1,47 @@
+# Deploy to Hostinger
+#
+# What it does: on every push to main (or a manual run), build the Astro site
+# and upload the generated dist/ folder to Hostinger over FTP.
+# Why: pushing to GitHub does not touch Hostinger on its own. This bridges them,
+# so "git push" becomes the deploy.
+#
+# One-time setup (GitHub -> repo Settings -> Secrets and variables -> Actions):
+#   FTP_SERVER    e.g. ftp.testsandfunnels.com  (hPanel -> Files -> FTP Accounts)
+#   FTP_USERNAME  your FTP account username
+#   FTP_PASSWORD  your FTP account password
+# If your FTP account already lands inside public_html, change server-dir to ./
+
+name: Deploy to Hostinger
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # lets you run it by hand from the Actions tab
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build static site
+        run: npm run build
+
+      - name: Upload dist/ to Hostinger over FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/
+          server-dir: ./public_html/

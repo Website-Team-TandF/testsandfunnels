@@ -1,0 +1,19 @@
+---
+/* Auto-generated faithful port of /services/.
+   Page content lives in src/html/services.html (injected as raw HTML).
+   Next pass: refactor this <main> into reusable section components. */
+import Layout from '../../layouts/Layout.astro';
+import main from '../../html/services.html?raw';
+import jsonLd from '../../html/services.jsonld.html?raw';
+---
+<Layout
+  title={"Digital Marketing Services in Delhi | tests&funnels"}
+  description={"Digital marketing services in Delhi: performance marketing, brand building, social media, cold outreach, SEO, websites and sales, run by agents and a team."}
+  canonical={"https://testsandfunnels.com/services/"}
+  ogTitle={"Digital Marketing Services in Delhi | tests&funnels"}
+  ogDescription={"Digital marketing services in Delhi: performance marketing, brand building, social media, cold outreach, SEO, websites and sales, run by agents and a team."}
+  pageType={"hub"}
+  jsonLd={jsonLd}
+>
+  <Fragment set:html={main} />
+</Layout>

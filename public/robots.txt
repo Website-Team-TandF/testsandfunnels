@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://testsandfunnels.com/sitemap-index.xml

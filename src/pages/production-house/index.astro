@@ -1,0 +1,19 @@
+---
+/* Auto-generated faithful port of /production-house/.
+   Page content lives in src/html/production-house.html (injected as raw HTML).
+   Next pass: refactor this <main> into reusable section components. */
+import Layout from '../../layouts/Layout.astro';
+import main from '../../html/production-house.html?raw';
+import jsonLd from '../../html/production-house.jsonld.html?raw';
+---
+<Layout
+  title={"Production House in Delhi: Media & UGC | tests&funnels"}
+  description={"Production house in Delhi for realistic media, UGC, influencer marketing and personal branding, planned for reuse across your ads and channels."}
+  canonical={"https://testsandfunnels.com/production-house/"}
+  ogTitle={"Production House in Delhi: Media & UGC | tests&funnels"}
+  ogDescription={"Production house in Delhi for realistic media, UGC, influencer marketing and personal branding, planned for reuse across your ads and channels."}
+  pageType={"pillar"}
+  jsonLd={jsonLd}
+>
+  <Fragment set:html={main} />
+</Layout>

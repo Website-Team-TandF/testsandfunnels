@@ -2,24 +2,50 @@
 /**
  * Layout.astro
  *
- * What it is: the base HTML shell wrapped around every page.
- * Why it exists: one place for <head> metadata and global styles, so no
- *   page repeats the boilerplate (the old site duplicated it across 36 files).
- * Where it's going: the shared header, nav, footer, mobile bar and floating
- *   CTA get added here next, plus a proper SEO/meta component. For now it is
- *   deliberately minimal and just proves the design-system foundation renders.
+ * What it is: the single HTML shell wrapped around every page.
+ * Why it exists: the old site copied the <head>, header, nav, footer, mobile
+ *   bar, floating CTA, video modal and scripts into all 36 files. Here they
+ *   live ONCE, so a change to the nav or footer is made in one place.
+ * Where it's going: the raw chrome blobs below (ported verbatim from the old
+ *   site) get refactored into real components (Header, Nav, Footer, ...) with
+ *   Framer Motion in the next pass. Pages only supply their <main>.
  */
 import '../styles/global.css';
+import pre from '../chrome/pre.html?raw'; // icon sprite + progress bar + skip link + header + mobile-nav
+import post from '../chrome/post.html?raw'; // footer + mobile action bar + floating CTA + video modal
+import app from '../chrome/app.js?raw'; // shared interactions: nav, forms, scroll reveal, counters, modal
 
 interface Props {
   title: string;
   description?: string;
+  canonical?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  pageType?: string;
+  jsonLd?: string; // raw <script type="application/ld+json"> markup for this page
 }
 
-const { title, description = '' } = Astro.props;
+const {
+  title,
+  description = '',
+  canonical,
+  ogTitle,
+  ogDescription,
+  pageType = '',
+  jsonLd = '',
+} = Astro.props;
 
-/* Absolute canonical URL for this page, from the production `site` + path. */
-const canonical = new URL(Astro.url.pathname, Astro.site).href;
+/* Absolute canonical URL: use the page's own if given, else derive from the
+   production `site` + current path. */
+const canon = canonical || new URL(Astro.url.pathname, Astro.site).href;
+
+/* Where lead forms POST. Empty for now, so the shared script falls back to a
+   prefilled WhatsApp chat (no backend). Phase 2: point this at the CRM. */
+const formEndpoint = '';
+const tfConfig =
+  `window.TF={"formEndpoint":"${formEndpoint}","wa":"917507994138",` +
+  `"phone":"+91 75079 94138","email":"admin@testsandfunnels.com",` +
+  `"auditHref":"/free-business-audit/"};`;
 ---
 
 <!doctype html>
@@ -29,9 +55,48 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
-    <link rel="canonical" href={canonical} />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#3A4050" />
+    <link rel="canonical" href={canon} />
+
+    {/* Open Graph / social */}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="tests&funnels" />
+    <meta property="og:title" content={ogTitle || title} />
+    {(ogDescription || description) && (
+      <meta property="og:description" content={ogDescription || description} />
+    )}
+    <meta property="og:url" content={canon} />
+    <meta property="og:locale" content="en_IN" />
+    <meta name="twitter:card" content="summary" />
+
+    {/* Progressive-enhancement flag the CSS keys off of (hidden until JS runs) */}
+    <script is:inline>document.documentElement.classList.add("js")</script>
+
+    {/* Fonts. TODO: self-host via Fontsource to drop the third-party request. */}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    {/* Per-page structured data */}
+    {jsonLd && <Fragment set:html={jsonLd} />}
   </head>
-  <body>
+
+  <body data-page-type={pageType}>
+    {/* Shared chrome before the page content */}
+    <Fragment set:html={pre} />
+
+    {/* The page supplies its own <main> here */}
     <slot />
+
+    {/* Shared chrome after the page content */}
+    <Fragment set:html={post} />
+
+    {/* Site config + interactions, kept verbatim so behaviour is unchanged */}
+    <script is:inline set:html={tfConfig}></script>
+    <script is:inline set:html={app}></script>
   </body>
 </html>

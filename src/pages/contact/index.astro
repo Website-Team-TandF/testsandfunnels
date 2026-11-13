@@ -1,0 +1,19 @@
+---
+/* Auto-generated faithful port of /contact/.
+   Page content lives in src/html/contact.html (injected as raw HTML).
+   Next pass: refactor this <main> into reusable section components. */
+import Layout from '../../layouts/Layout.astro';
+import main from '../../html/contact.html?raw';
+import jsonLd from '../../html/contact.jsonld.html?raw';
+---
+<Layout
+  title={"Contact tests&funnels: Call, WhatsApp, Email"}
+  description={"Contact tests&funnels in Delhi by phone, WhatsApp, email or form for agency, training, incubation and partnership enquiries."}
+  canonical={"https://testsandfunnels.com/contact/"}
+  ogTitle={"Contact tests&funnels: Call, WhatsApp, Email"}
+  ogDescription={"Contact tests&funnels in Delhi by phone, WhatsApp, email or form for agency, training, incubation and partnership enquiries."}
+  pageType={"contact"}
+  jsonLd={jsonLd}
+>
+  <Fragment set:html={main} />
+</Layout>

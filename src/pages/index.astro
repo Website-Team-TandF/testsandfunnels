@@ -1,19 +1,19 @@
 ---
-/**
- * Home page (placeholder).
- *
- * Why it exists right now: confirms the Astro + Tailwind v4 + React scaffold
- *   renders and that Tailwind utility classes are active.
- * Where it's going: this gets replaced by the real home page, assembled from
- *   reusable section components (Hero, CardGrid, ProofMetrics, CtaBand, ...).
- */
+/* Auto-generated faithful port of / (home).
+   Page content lives in src/html/index.html (injected as raw HTML).
+   Next pass: refactor this <main> into reusable section components. */
 import Layout from '../layouts/Layout.astro';
+import main from '../html/index.html?raw';
+import jsonLd from '../html/index.jsonld.html?raw';
 ---
-
-<Layout title="tests&funnels" description="Scaffold running.">
-  <main class="grid min-h-screen place-items-center bg-white">
-    <p class="text-2xl font-semibold text-slate-700">
-      Astro scaffold is running.
-    </p>
-  </main>
+<Layout
+  title={"AI Agency, Production House & Incubator | tests&funnels"}
+  description={"Delhi AI agency that automates marketing, sales and operations, a production house for media, UGC and personal brands, and a partner in Incube8."}
+  canonical={"https://testsandfunnels.com/"}
+  ogTitle={"AI Agency, Production House & Incubator | tests&funnels"}
+  ogDescription={"Delhi AI agency that automates marketing, sales and operations, a production house for media, UGC and personal brands, and a partner in Incube8."}
+  pageType={"home"}
+  jsonLd={jsonLd}
+>
+  <Fragment set:html={main} />
 </Layout>

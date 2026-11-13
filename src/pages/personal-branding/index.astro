@@ -1,0 +1,19 @@
+---
+/* Auto-generated faithful port of /personal-branding/.
+   Page content lives in src/html/personal-branding.html (injected as raw HTML).
+   Next pass: refactor this <main> into reusable section components. */
+import Layout from '../../layouts/Layout.astro';
+import main from '../../html/personal-branding.html?raw';
+import jsonLd from '../../html/personal-branding.jsonld.html?raw';
+---
+<Layout
+  title={"Personal Branding Agency in Delhi | tests&funnels"}
+  description={"Personal branding agency in Delhi: positioning, repeatable video content, influencer creation and growth on Instagram, YouTube and LinkedIn."}
+  canonical={"https://testsandfunnels.com/personal-branding/"}
+  ogTitle={"Personal Branding Agency in Delhi | tests&funnels"}
+  ogDescription={"Personal branding agency in Delhi: positioning, repeatable video content, influencer creation and growth on Instagram, YouTube and LinkedIn."}
+  pageType={"pillar"}
+  jsonLd={jsonLd}
+>
+  <Fragment set:html={main} />
+</Layout>

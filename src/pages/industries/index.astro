@@ -1,0 +1,19 @@
+---
+/* Auto-generated faithful port of /industries/.
+   Page content lives in src/html/industries.html (injected as raw HTML).
+   Next pass: refactor this <main> into reusable section components. */
+import Layout from '../../layouts/Layout.astro';
+import main from '../../html/industries.html?raw';
+import jsonLd from '../../html/industries.jsonld.html?raw';
+---
+<Layout
+  title={"Niche Marketing Agency by Industry | tests&funnels"}
+  description={"A niche marketing agency for e-commerce brands, hospitals and clinics, and personal brands, with ROI-positive growth as the goal."}
+  canonical={"https://testsandfunnels.com/industries/"}
+  ogTitle={"Niche Marketing Agency by Industry | tests&funnels"}
+  ogDescription={"A niche marketing agency for e-commerce brands, hospitals and clinics, and personal brands, with ROI-positive growth as the goal."}
+  pageType={"hub"}
+  jsonLd={jsonLd}
+>
+  <Fragment set:html={main} />
+</Layout>

@@ -1,0 +1,19 @@
+---
+/* Auto-generated faithful port of /ai-automation/.
+   Page content lives in src/html/ai-automation.html (injected as raw HTML).
+   Next pass: refactor this <main> into reusable section components. */
+import Layout from '../../layouts/Layout.astro';
+import main from '../../html/ai-automation.html?raw';
+import jsonLd from '../../html/ai-automation.jsonld.html?raw';
+---
+<Layout
+  title={"AI Automation Agency: Marketing, Sales, Ops | tests&funnels"}
+  description={"AI automation agency in Delhi: agents that run the manual work of marketing, sales and operations, with one point of contact and people in review."}
+  canonical={"https://testsandfunnels.com/ai-automation/"}
+  ogTitle={"AI Automation Agency: Marketing, Sales, Ops | tests&funnels"}
+  ogDescription={"AI automation agency in Delhi: agents that run the manual work of marketing, sales and operations, with one point of contact and people in review."}
+  pageType={"pillar"}
+  jsonLd={jsonLd}
+>
+  <Fragment set:html={main} />
+</Layout>

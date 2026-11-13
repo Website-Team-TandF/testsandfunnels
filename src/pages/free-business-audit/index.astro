@@ -1,0 +1,19 @@
+---
+/* Auto-generated faithful port of /free-business-audit/.
+   Page content lives in src/html/free-business-audit.html (injected as raw HTML).
+   Next pass: refactor this <main> into reusable section components. */
+import Layout from '../../layouts/Layout.astro';
+import main from '../../html/free-business-audit.html?raw';
+import jsonLd from '../../html/free-business-audit.jsonld.html?raw';
+---
+<Layout
+  title={"Free Business Audit: Full-Funnel Review | tests&funnels"}
+  description={"Free business audit: we collect your brief, then audit your industry and funnel from visibility to retention and pitch a strategy and roadmap."}
+  canonical={"https://testsandfunnels.com/free-business-audit/"}
+  ogTitle={"Free Business Audit: Full-Funnel Review | tests&funnels"}
+  ogDescription={"Free business audit: we collect your brief, then audit your industry and funnel from visibility to retention and pitch a strategy and roadmap."}
+  pageType={"audit"}
+  jsonLd={jsonLd}
+>
+  <Fragment set:html={main} />
+</Layout>
