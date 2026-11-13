@@ -1,0 +1,36 @@
+# Render blueprint for the CRM (one web service that runs the Express API and
+# serves the built React dashboard from the same origin).
+#
+# Deploy: create a free account at https://render.com, then New -> Blueprint,
+# connect this GitHub repo, and Render reads this file. You will be prompted for
+# the two secret values below (MONGODB_URI, ADMIN_PASSWORD).
+#
+# You also need a database: create a free MongoDB Atlas cluster, allow access
+# from anywhere (0.0.0.0/0, since Render's IPs are dynamic), and paste its
+# connection string as MONGODB_URI.
+services:
+  - type: web
+    name: testsandfunnels-crm
+    runtime: node
+    plan: free
+    autoDeploy: true
+    # Install both apps, build the dashboard. --include=dev is needed because
+    # Vite/Tailwind are devDependencies and Render installs with NODE_ENV=production.
+    buildCommand: cd backend && npm install && cd ../frontend && npm install --include=dev && npm run build
+    # The backend serves ../frontend/dist, so one process hosts the whole app.
+    startCommand: cd backend && npm start
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: JWT_SECRET
+        generateValue: true # Render generates a strong random secret
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: ADMIN_USERNAME
+        value: admin
+      - key: ADMIN_PASSWORD
+        sync: false # set this in the Render dashboard (your dashboard login password)
+      - key: MONGODB_URI
+        sync: false # paste your MongoDB Atlas connection string
+      - key: CLIENT_ORIGIN
+        value: "*"

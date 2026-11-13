@@ -40,7 +40,12 @@ The dashboard proxies `/api` to the backend. Log in with the credentials in `bac
 ## Deploy
 
 - **Marketing site →** push to `main`. The GitHub Action (`.github/workflows/deploy.yml`) builds and FTP-uploads `dist/` to Hostinger. Add `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD` as repo secrets first.
-- **CRM →** needs a Node host **and** MongoDB (e.g. Render, Railway, a VPS, or a Hostinger VPS/Node plan). It cannot run on Hostinger *static* hosting.
+- **CRM →** needs a Node host **and** MongoDB; it cannot run on Hostinger *static* hosting. The free path is **Render + MongoDB Atlas**:
+  1. **MongoDB Atlas** (free): create a cluster, add a database user, set Network Access to `0.0.0.0/0`, and copy the connection string.
+  2. **Render** (free): New → **Blueprint** → connect this repo. It reads `render.yaml` (one web service that builds the dashboard and runs the API that serves it). When prompted, set `MONGODB_URI` (the Atlas string) and `ADMIN_PASSWORD`.
+  3. Open the Render URL and log in with `admin` / your `ADMIN_PASSWORD`.
+
+  The backend serves the built dashboard, so one service hosts the whole CRM.
 
 ## Sending website leads into the CRM
 
