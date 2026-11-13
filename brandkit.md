@@ -59,7 +59,7 @@ Brand scale (purple):
 |---|---|---|
 | `--p900` | `#2A2D3D` | deepest dark (footer, dark gradients start) |
 | `--p800` | `#3A4050` | **default text / ink**, dark section base, `theme-color` |
-| `--p700` | `#4B4580` | strong accents, gradient start, chip text |
+| `--p700` | `#3A4050` | strong accents, gradient start, chip text |
 | `--p600` | `#5A5391` | links, icons, hover text, `--purple-text` (AA on white) |
 | `--p500` | `#6F68AE` | icon tint, hover fills |
 | `--p400` | `#8781BD` | brand purple (`--purple`): dots, borders on hover, focus ring base |
@@ -98,7 +98,7 @@ Feedback colors (forms only):
 ### 3.2 Gradients
 
 ```css
---grad:      linear-gradient(135deg,#4B4580 0%,#5A5391 45%,#7B74BB 100%);  /* buttons, icon discs, bars, step numbers */
+--grad:      linear-gradient(135deg,#3A4050 0%,#5A5391 45%,#7B74BB 100%);  /* buttons, icon discs, bars, step numbers */
 --grad-soft: linear-gradient(135deg,#F4F3FA 0%,#E8E6F4 100%);               /* price card, training card, avatars */
 Text gradient (h1/h2 strong, logo span, metric numbers, .big-word.t):
   linear-gradient(120deg,var(--p600),var(--p400)) with background-clip:text; color:transparent
@@ -241,7 +241,7 @@ Reuse these; do not write one-off CSS in a page.
 **Hero lead form** `.hf` white card radius 28, `--shadow-lg`, 4px gradient tab on top edge, `.hf-ic` gradient square icon, `.hf-trust` dashed-top checklist.
 
 **Cards**
-- `.card-d` feature card: 1px `--p100` border, radius 26, `--shadow-sm`, `.ic-chip` icon square, optional `.pillar-n` numeral, `p.body`, bullet list with purple markers, `.more` link pinned to bottom. Hover: lift 6px, `--shadow-md`, border `--p300`, corner glow, dot appears, icon chip turns gradient and tilts -6deg. `.hi` = dark gradient `#3A4050 -> #4B4580` variant (one per group max).
+- `.card-d` feature card: 1px `--p100` border, radius 26, `--shadow-sm`, `.ic-chip` icon square, optional `.pillar-n` numeral, `p.body`, bullet list with purple markers, `.more` link pinned to bottom. Hover: lift 6px, `--shadow-md`, border `--p300`, corner glow, dot appears, icon chip turns gradient and tilts -6deg. `.hi` = dark gradient `#3A4050 -> #3A4050` variant (one per group max).
 - `.card-s` simple card: 1px `--g200`, radius 22, hover lift 4px.
 - `.niche`, `.metric`, `.quote`, `.price`, `.steps-l li`, `.infl-card`: same border/radius/shadow family.
 
