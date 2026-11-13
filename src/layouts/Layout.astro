@@ -1,0 +1,37 @@
+---
+/**
+ * Layout.astro
+ *
+ * What it is: the base HTML shell wrapped around every page.
+ * Why it exists: one place for <head> metadata and global styles, so no
+ *   page repeats the boilerplate (the old site duplicated it across 36 files).
+ * Where it's going: the shared header, nav, footer, mobile bar and floating
+ *   CTA get added here next, plus a proper SEO/meta component. For now it is
+ *   deliberately minimal and just proves the design-system foundation renders.
+ */
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = '' } = Astro.props;
+
+/* Absolute canonical URL for this page, from the production `site` + path. */
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+---
+
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="canonical" href={canonical} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
