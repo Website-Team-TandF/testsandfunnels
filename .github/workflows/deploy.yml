@@ -6,10 +6,12 @@
 # so "git push" becomes the deploy.
 #
 # One-time setup (GitHub -> repo Settings -> Secrets and variables -> Actions):
-#   FTP_SERVER    e.g. ftp.testsandfunnels.com  (hPanel -> Files -> FTP Accounts)
-#   FTP_USERNAME  your FTP account username
-#   FTP_PASSWORD  your FTP account password
-# If your FTP account already lands inside public_html, change server-dir to ./
+#   FTP_SERVER    the FTP IP/host, e.g. 88.222.209.24  (hPanel -> Files -> FTP Accounts)
+#   FTP_USERNAME  the full FTP username exactly as hPanel lists it
+#   FTP_PASSWORD  that account's password
+# server-dir below assumes an FTP account rooted at /public_html (the dedicated
+# "testsandfunnels" account). If you use the MAIN account (it lands in the home
+# dir), change server-dir to ./public_html/ instead.
 
 name: Deploy to Hostinger
 
@@ -44,4 +46,4 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
-          server-dir: ./public_html/
+          server-dir: ./
