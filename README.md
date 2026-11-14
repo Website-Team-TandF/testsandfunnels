@@ -6,10 +6,9 @@ Two apps in one repo:
 - **CRM** — a MERN app for leads and appointments, used internally.
 
 ```
-/            Astro marketing site (src/, public/, astro.config.mjs)
+website/     Astro marketing site (src/, public/, astro.config.mjs; legacy/ = old site, reference only)
 backend/     Express + MongoDB API for the CRM (leads + appointments, JWT auth)
 frontend/    React (Vite) dashboard for the CRM
-legacy/      the old static site — reference only, not built or deployed
 ```
 
 Design + internals: [brandkit.md](brandkit.md) (look & feel), [agent.md](agent.md) (marketing-site internals).
@@ -17,9 +16,10 @@ Design + internals: [brandkit.md](brandkit.md) (look & feel), [agent.md](agent.m
 ## Run the marketing site
 
 ```bash
+cd website
 npm install
 npm run dev      # http://localhost:4321
-npm run build    # -> dist/  (what gets deployed)
+npm run build    # -> website/dist/  (what gets deployed)
 ```
 
 ## Run the CRM

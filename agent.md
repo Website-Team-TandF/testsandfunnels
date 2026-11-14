@@ -4,6 +4,8 @@ Read this first, then [brandkit.md](brandkit.md) (colors, type, layout, motion, 
 Verified against the code on 2026-11-13, right after the migration from the old
 static HTML site to Astro. If behaviour and this file disagree, the code wins — then fix this file.
 
+> **Moved 2026-11-14:** the marketing site now lives in **`website/`**. Every `src/…`, `public/…`, `astro.config.mjs` and `global.css` path below is relative to `website/` (e.g. `website/src/layouts/Layout.astro`). The CRM is separate, in `backend/` + `frontend/`.
+
 ---
 
 ## 1. What this project is
